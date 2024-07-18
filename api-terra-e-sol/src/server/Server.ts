@@ -1,10 +1,13 @@
 // código base do servidor express
 import express, { Request, Response } from "express";
+import "dotenv/config";
+
+import { router } from "./routes";
 
 const server = express();
 
-server.get("/", (req: Request, res: Response) => {
-  return res.send("Teste");
-});
+server.use(express.json());
+
+server.use(router);
 
 export { server };

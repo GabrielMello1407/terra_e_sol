@@ -4,21 +4,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node-dev src/index.ts"
   },
   "author": "Gabriel Mello",
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@types/express": "^4.17.21",
-    "eslint": "^9.7.0",
+    "@types/http-status-codes": "^1.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "eslint": "^8.57.0",
     "globals": "^15.8.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1"
+    "typescript": "^5.5.3"
   }
 }
