@@ -9,6 +9,10 @@ router.get("/", (req, res) => {
   return res.send("Teste");
 });
 
-router.post("/pedidos", PedidosController.create);
+router.post(
+  "/pedidos",
+  PedidosController.createValidation,
+  PedidosController.create
+);
 
 export { router };

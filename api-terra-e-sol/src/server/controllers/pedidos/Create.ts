@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { parse, isDate } from "date-fns";
+import { validation } from "../../shared/middlewares";
 
 interface Ipedidos {
   nome: string;
@@ -11,7 +12,6 @@ interface Ipedidos {
   data: Date;
   detalhes?: string;
 }
-
 const parseDateString = (value: any, originalValue: any) => {
   const parsedDate = isDate(originalValue)
     ? originalValue
@@ -19,40 +19,31 @@ const parseDateString = (value: any, originalValue: any) => {
 
   return parsedDate;
 };
+// Definição da interface IFilter para query params
+interface IFilter {
+  filter?: string;
+}
 
-// Lib que realiza validação dos campos
-const bodyValidation: yup.Schema<Ipedidos> = yup.object().shape({
-  nome: yup.string().required().min(3),
-  numero: yup.number().required(),
-  telefone: yup.string().required(),
-  valor: yup.number().required(),
-  data: yup.date().transform(parseDateString).required(),
-  detalhes: yup.string(),
-});
+export const createValidation = validation((getSchema) => ({
+  body: getSchema<Ipedidos>(
+    yup.object().shape({
+      nome: yup.string().required().min(3),
+      numero: yup.number().required(),
+      telefone: yup.string().required(),
+      valor: yup.number().required(),
+      data: yup.date().transform(parseDateString).required(),
+      detalhes: yup.string().optional(),
+    })
+  ),
+  query: getSchema<IFilter>(
+    yup.object().shape({
+      filter: yup.string().optional().min(3),
+    })
+  ),
+}));
 
 export const create = async (req: Request<{}, {}, Ipedidos>, res: Response) => {
-  let validateData: Ipedidos | undefined = undefined;
-  try {
-    validateData = await bodyValidation.validate(req.body, {
-      abortEarly: false,
-    });
-  } catch (error) {
-    const yupError = error as yup.ValidationError;
-    const ValidationErrors: Record<string, string> = {};
-
-    // mostra qual o erro que está dando, mapeando todos os erros e mostrando na tela
-    yupError.inner.forEach((error) => {
-      if (!error.path) return;
-      ValidationErrors[error.path] = error.message;
-    });
-
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      errors: {
-        default: ValidationErrors,
-      },
-    });
-  }
-  console.log(validateData);
+  console.log(req.body);
 
   return res.send("Create!");
 };
