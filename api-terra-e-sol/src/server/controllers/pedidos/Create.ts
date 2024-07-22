@@ -19,10 +19,6 @@ const parseDateString = (value: any, originalValue: any) => {
 
   return parsedDate;
 };
-// Definição da interface IFilter para query params
-interface IFilter {
-  filter?: string;
-}
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<Ipedidos>(
@@ -35,15 +31,10 @@ export const createValidation = validation((getSchema) => ({
       detalhes: yup.string().optional(),
     })
   ),
-  query: getSchema<IFilter>(
-    yup.object().shape({
-      filter: yup.string().optional().min(3),
-    })
-  ),
 }));
 
 export const create = async (req: Request<{}, {}, Ipedidos>, res: Response) => {
   console.log(req.body);
 
-  return res.send("Create!");
+  return res.status(StatusCodes.BAD_REQUEST).send("Created!");
 };
