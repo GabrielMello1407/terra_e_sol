@@ -12,7 +12,7 @@ const config: Config = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testMatch: ["<rootDir>/tests/**/*.test.ts"],
   transform: {
-    "^.+\\(ts|tsx)$": "ts-jest",
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",

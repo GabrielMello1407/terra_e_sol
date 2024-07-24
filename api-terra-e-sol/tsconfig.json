@@ -8,8 +8,9 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./build",
     "rootDir": "./src",
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["jest"]
   },
-  "include": ["src"],  
+  "include": ["src/**/*", "tests/**/*"],  
   "exclude": ["node_modules", "dist","tests","jest.config.ts","build"]
 }
