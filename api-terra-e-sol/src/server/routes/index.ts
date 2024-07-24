@@ -17,5 +17,20 @@ router.post(
   PedidosController.createValidation,
   PedidosController.create
 );
+router.get(
+  "/pedidos/:id",
+  PedidosController.getByIdValidation,
+  PedidosController.getById
+);
+router.put(
+  "/pedidos/:id",
+  PedidosController.updateByIdValidation,
+  PedidosController.updateById
+);
+router.delete(
+  "/pedidos/:id",
+  PedidosController.deleteByIdValidation,
+  PedidosController.deleteById
+);
 
 export { router };

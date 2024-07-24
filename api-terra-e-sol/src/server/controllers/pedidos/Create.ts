@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { parse, isDate } from "date-fns";
+import { parseDateString } from "../../shared/services/DateString";
 import { validation } from "../../shared/middlewares";
 
 interface Ipedidos {
@@ -12,13 +12,6 @@ interface Ipedidos {
   data: Date;
   detalhes?: string;
 }
-const parseDateString = (value: any, originalValue: any) => {
-  const parsedDate = isDate(originalValue)
-    ? originalValue
-    : parse(originalValue, "dd/MM/yyyy", new Date());
-
-  return parsedDate;
-};
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<Ipedidos>(
