@@ -29,5 +29,5 @@ export const createValidation = validation((getSchema) => ({
 export const create = async (req: Request<{}, {}, Ipedidos>, res: Response) => {
   console.log(req.body);
 
-  return res.status(StatusCodes.BAD_REQUEST).send("Created!");
+  return res.status(StatusCodes.CREATED).send("Created!");
 };

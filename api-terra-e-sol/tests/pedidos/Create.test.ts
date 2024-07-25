@@ -13,9 +13,7 @@ describe("Pedidos - Create", () => {
       detalhes: "Detalhes do pedido",
     });
 
-    console.log("Response Body:", res.body);
-
-    expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+    expect(res.statusCode).toEqual(StatusCodes.CREATED);
     expect(res.text).toEqual("Created!");
   });
 
