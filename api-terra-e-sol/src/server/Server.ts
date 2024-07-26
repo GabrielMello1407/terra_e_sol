@@ -6,6 +6,8 @@ import "./shared/services/TraducoesYup";
 
 import { router } from "./routes";
 
+require("./database");
+
 const server = express();
 
 server.use(express.json());

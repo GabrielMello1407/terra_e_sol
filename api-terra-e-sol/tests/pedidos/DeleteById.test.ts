@@ -16,7 +16,7 @@ describe("Pedidos - DeleteById", () => {
 
     const resApagada = await testServer.delete(`/pedidos/${res.body}`).send();
 
-    expect(resApagada.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+    expect(resApagada.statusCode).toEqual(StatusCodes.NO_CONTENT);
   });
 
   it("Tenta apagar registro que não existe", async () => {

@@ -16,7 +16,7 @@ describe("Pedidos - GetById", () => {
 
     const resBuscada = await testServer.get(`/pedidos/${res.body}`).send();
 
-    expect(resBuscada.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+    expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
   });
 
   it("Tenta buscar registro que não existe", async () => {

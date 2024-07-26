@@ -23,7 +23,7 @@ describe("Pedidos - UpdateById", () => {
       detalhes: "Detalhes do pedido",
     });
 
-    expect(resAtualizada.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+    expect(resAtualizada.statusCode).toEqual(StatusCodes.NO_CONTENT);
   });
 
   it("Tenta atualizar registro que não existe", async () => {
