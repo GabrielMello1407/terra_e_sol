@@ -3,18 +3,12 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { parseDateString } from "../../shared/services/DateString";
+import { Ipedidos } from "../../database/models";
 
 interface IParamProps {
   id?: number;
 }
-interface IBodyProps {
-  nome: string;
-  numero: number;
-  telefone: string;
-  valor: number;
-  data: Date;
-  detalhes?: string;
-}
+interface IBodyProps extends Omit<Ipedidos, "id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(

@@ -1,3 +1,7 @@
+import { Ipedidos } from "../../models";
+
 declare module "knex/types/tables" {
-  interface Tables {}
+  interface Tables {
+    pedido: Ipedidos;
+  }
 }
