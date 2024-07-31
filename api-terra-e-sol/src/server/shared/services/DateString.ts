@@ -1,9 +1,11 @@
-import { parse, isDate } from "date-fns";
+import { parse, isValid } from "date-fns";
 
 export const parseDateString = (value: any, originalValue: any) => {
-  const parsedDate = isDate(originalValue)
-    ? originalValue
-    : parse(originalValue, "dd/MM/yyyy", new Date());
+  const parsedDate = parse(originalValue, "dd/MM/yyyy", new Date());
 
-  return parsedDate;
+  if (isValid(parsedDate)) {
+    return parsedDate;
+  }
+
+  throw new Error("Data inválida: " + originalValue);
 };

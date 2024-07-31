@@ -4,6 +4,6 @@ export interface Ipedidos {
   numero: number;
   telefone: string;
   valor: number;
-  data: Date;
+  data: Date | null;
   detalhes?: string;
 }
