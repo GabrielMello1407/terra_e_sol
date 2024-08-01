@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
+import { PedidosProvider } from "../../database/providers/pedidos";
 
 interface IParamProps {
   id?: number;
@@ -16,20 +17,20 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-  if (Number(req.params.id) === 9999)
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+  if (!req.params.id)
+    return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
-        default: "Registro não encontrado",
+        default: 'O parâmetro "id" precisa ser informado.',
       },
     });
+  const result = await PedidosProvider.getById(req.params.id);
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
 
-  return res.status(StatusCodes.OK).json({
-    id: req.params.id,
-    nome: "Gabriel",
-    numero: 1150,
-    telefone: "35251249",
-    valor: 150,
-    data: "20/07/2024",
-    detalhes: "Detalhes do pedido",
-  });
+  return res.status(StatusCodes.OK).json(result);
 };
