@@ -4,7 +4,6 @@
 
 import { PedidoService } from '@/service/PedidoService';
 import { useEffect, useState } from 'react';
-// Ajuste o caminho se necessário
 
 interface Pedido {
   id: number;
@@ -26,7 +25,14 @@ const PedidosPage = () => {
       try {
         const service = new PedidoService();
         const response = await service.listarTodos();
-        setPedidos(response.data);
+
+        // Certifique-se de que os dados recebidos sejam objetos Date
+        const pedidosComDataCorreta = response.data.map((pedido: any) => ({
+          ...pedido,
+          data: new Date(pedido.data),
+        }));
+
+        setPedidos(pedidosComDataCorreta);
       } catch (err) {
         console.error('Erro ao buscar pedidos:', err);
         setError('Não foi possível buscar os pedidos.');
@@ -47,9 +53,28 @@ const PedidosPage = () => {
       <ul>
         {pedidos.map((pedido) => (
           <li key={pedido.id}>
-            <strong>Descrição:</strong> {pedido.nome} <br />
-            <strong>Quantidade:</strong> {pedido.numero}
-            {/* Adicione mais detalhes conforme necessário */}
+            <p>
+              <strong>Nome:</strong> {pedido.nome} <br />
+            </p>
+            <p>
+              <strong>Número:</strong> {pedido.numero} <br />
+            </p>
+            <p>
+              <strong>Telefone:</strong> {pedido.telefone} <br />
+            </p>
+            <p>
+              <strong>Valor:</strong> {pedido.valor} <br />
+            </p>
+            <p>
+              <strong>Data:</strong> {pedido.data.toLocaleDateString()} <br />
+            </p>
+            {/* Formata a data como string */}
+            <p>
+              <strong>Detalhes:</strong>{' '}
+              {pedido.detalhes || 'Nenhum detalhe disponível'}{' '}
+            </p>
+            <br />
+            {/* Verifica se há detalhes disponíveis */}
           </li>
         ))}
       </ul>
