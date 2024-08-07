@@ -6,12 +6,10 @@ import CadastrarModal from './modalCadastro';
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Função para abrir o modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  // Função para fechar o modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -19,18 +17,18 @@ const Header: React.FC = () => {
   return (
     <header className="bg-white shadow-md p-4">
       <div className="container mx-auto flex items-center justify-between">
-        {/* Logo à esquerda */}
         <div className="flex-shrink-0">
-          <Image
-            src="/terra_logo.svg"
-            width={100}
-            height={100}
-            alt="Terra e Sol Logo"
-            className="object-contain"
-          />
+          <a href="/">
+            <Image
+              src="/terra_logo.svg"
+              width={100}
+              height={100}
+              alt="Terra e Sol Logo"
+              className="object-contain"
+            />
+          </a>
         </div>
 
-        {/* Barra de busca */}
         <div className="flex-grow mx-4">
           <div className="flex justify-center">
             <div className="relative w-full max-w-md">
@@ -63,15 +61,13 @@ const Header: React.FC = () => {
             </a>
           </div>
           <button
-            onClick={openModal} // Abre o modal ao clicar
+            onClick={openModal}
             className="px-4 py-2 bg-gradient-to-r from-[#41A156] to-[#41A18A] text-white font-poppins rounded-lg hover:from-[#41A18A] hover:to-[#41A156] transition-colors font-bold text-lg"
           >
             Cadastrar
           </button>
         </div>
       </div>
-
-      {/* Componente Modal */}
       <CadastrarModal isOpen={isModalOpen} onRequestClose={closeModal} />
     </header>
   );
