@@ -49,7 +49,8 @@ Rode as migrações para criar os campos da tabela:
 npm run knex:migrate
 
 Inicie a aplicação:
-npm run start
+npm run start NA API
+npm run dev no frontend caso rode local
 A aplicação estará rodando em http://localhost:3000.
 
 ## Funcionalidades
@@ -140,7 +141,8 @@ Run the migrations to create the table fields:
 npm run knex:migrate
 
 Start the application:
-npm run start
+npm run start in backend
+npm run dev in frontend
 The application will be running at http://localhost:3000.
 
 ## Functionalities
