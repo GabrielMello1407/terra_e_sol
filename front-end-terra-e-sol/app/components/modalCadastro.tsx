@@ -11,11 +11,13 @@ import { format } from 'date-fns';
 import { formatCurrency } from '../utils/formatCurrency';
 import { handleValorChange } from '../utils/handleValorChange';
 import { formatPhoneNumber } from '../utils/formatPhoneNumber';
-import Notification from './CreateSuccessfully';
+import Notification from './Notification';
+import { Pedido } from '../types/PedidoTypes';
 
 interface CadastrarModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
+  onPedidoCriado: (novoPedido: Pedido) => void;
 }
 
 const CadastrarModal: React.FC<CadastrarModalProps> = ({
@@ -41,7 +43,7 @@ const CadastrarModal: React.FC<CadastrarModalProps> = ({
     if (notificationVisible) {
       const timer = setTimeout(() => {
         setNotificationVisible(false);
-      }, 3000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [notificationVisible]);
@@ -54,12 +56,13 @@ const CadastrarModal: React.FC<CadastrarModalProps> = ({
       return;
     }
 
+    // Formata a data para o formato aceito pelo backend
     const dataEntregaFormatada = format(startDate, 'yyyy-MM-dd');
 
     const novoPedido = {
       numero,
       nome,
-      data: new Date(dataEntregaFormatada),
+      data: dataEntregaFormatada, // Envia a data como string no formato yyyy-MM-dd
       telefone,
       valor,
       detalhes,
@@ -220,7 +223,7 @@ const CadastrarModal: React.FC<CadastrarModalProps> = ({
               <button
                 type="button"
                 onClick={onRequestClose}
-                className="px-6 py-3 bg-gray-300 text-gray-700 font-semibold text-lg rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                className="px-6 py-3 bg-red-600 text-white font-semibold text-lg rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
               >
                 Cancelar
               </button>
@@ -229,7 +232,7 @@ const CadastrarModal: React.FC<CadastrarModalProps> = ({
         </div>
       </Modal>
       <Notification
-        message="Pedido cadastrado com sucesso!"
+        message="PEDIDO<br />CADASTRADO<br />COM SUCESSO!"
         isVisible={notificationVisible}
         onClose={() => setNotificationVisible(false)}
       />

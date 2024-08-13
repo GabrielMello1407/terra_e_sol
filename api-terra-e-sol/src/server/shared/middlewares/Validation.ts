@@ -26,17 +26,20 @@ export const validation: TValidation =
       } catch (err) {
         const yupError = err as ValidationError;
         const errors: Record<string, string> = {};
-
-        yupError.inner.forEach((error) => {
-          if (error.path === undefined) return;
-          errors[error.path] = error.message;
-        });
+        // Verificar se yupError.inner é um array antes de usar forEach
+        if (Array.isArray(yupError.inner)) {
+          yupError.inner.forEach((error) => {
+            if (error.path !== undefined) {
+              errors[error.path] = error.message;
+            }
+          });
+        }
 
         errorsResult[key] = errors;
       }
     });
 
-    if (Object.entries(errorsResult).length === 0) {
+    if (Object.keys(errorsResult).length === 0) {
       return next();
     } else {
       return res.status(StatusCodes.BAD_REQUEST).json({ errors: errorsResult });

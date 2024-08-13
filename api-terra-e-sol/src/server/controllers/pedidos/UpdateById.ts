@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
-import { parseDateString } from "../../shared/services/DateString";
 import { Ipedidos } from "../../database/models";
 import { PedidosProvider } from "../../database/providers/pedidos";
 
@@ -18,8 +17,9 @@ export const updateByIdValidation = validation((getSchema) => ({
       numero: yup.number().required(),
       telefone: yup.string().required(),
       valor: yup.number().required(),
-      data: yup.date().transform(parseDateString).required(),
+      data: yup.date().required(),
       detalhes: yup.string().optional(),
+      pronto: yup.boolean().default(false).optional(),
     })
   ),
   params: getSchema<IParamProps>(

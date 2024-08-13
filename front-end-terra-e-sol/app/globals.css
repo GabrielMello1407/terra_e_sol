@@ -20,3 +20,63 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+.react-calendar {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: #f2f2f2 !important;
+  border-radius: 10px;
+}
+
+.react-calendar__tile {
+  border: none !important;
+  color: #41A156 !important; /* Define a cor padrão para os dias */
+}
+
+.react-calendar__tile--now {
+  background-color: white !important;
+  font-weight: bold !important;
+  color: #41A156;
+}
+
+.react-calendar__tile--now:hover,
+.react-calendar__tile--now:focus {
+  background-color: #ddd !important;
+}
+
+.react-calendar__tile--weekend {
+  color: #EE4137 !important;
+}
+
+.react-calendar__navigation button {
+  color: #41A156 !important;
+  font-weight: bold !important;
+  border: none !important;
+  background-color: #ffffff !important;
+  background: none !important;
+}
+
+.react-calendar__navigation button:disabled {
+  color: #cccccc !important;
+}
+
+.react-calendar__tile:disabled {
+  color: #cccccc !important;
+}
+.react-calendar__tile--active {
+  background-color: #ffffff !important; /* Fundo branco para o dia selecionado */
+  color: #41A156 !important; /* Cor do texto do dia selecionado */
+  border: 2px solid #41A156 !important;
+  border-radius: 50% !important; 
+}
+
+/* Dia do mês com destaque no calendário */
+.react-calendar__tile {
+  border-radius: 2px !important; /* Bordas arredondadas para todas as células (opcional) */
+}
+
+/* Fundo do dia do mês quando selecionado no intervalo de datas */
+.react-calendar__tile--hasActive {
+  background-color: #ffffff !important; /* Fundo branco para o intervalo selecionado */
+  color: #41A156 !important; /* Cor do texto para o intervalo selecionado */
+}

@@ -4,6 +4,8 @@
 
 import { PedidoService } from '@/service/PedidoService';
 import { useEffect, useState } from 'react';
+import Header from '../components/Header';
+import PedidosDoDia from '../components/PedidosDoDia';
 
 interface Pedido {
   id: number;
@@ -25,8 +27,6 @@ const PedidosPage = () => {
       try {
         const service = new PedidoService();
         const response = await service.listarTodos();
-
-        // Certifique-se de que os dados recebidos sejam objetos Date
         const pedidosComDataCorreta = response.data.map((pedido: any) => ({
           ...pedido,
           data: new Date(pedido.data),
@@ -44,40 +44,23 @@ const PedidosPage = () => {
     fetchPedidos();
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading)
+    return (
+      <div className="ui segment">
+        <div className="ui active dimmer">
+          <div className="ui text loader">Carregando...</div>
+        </div>
+        <p></p>
+      </div>
+    );
   if (error) return <p>Erro: {error}</p>;
-
+  const handleSearchChange = (searchTerm: string) => {
+    console.log(searchTerm);
+  };
   return (
-    <div>
-      <h1>Lista de Pedidos</h1>
-      <ul>
-        {pedidos.map((pedido) => (
-          <li key={pedido.id}>
-            <p>
-              <strong>Nome:</strong> {pedido.nome} <br />
-            </p>
-            <p>
-              <strong>Número:</strong> {pedido.numero} <br />
-            </p>
-            <p>
-              <strong>Telefone:</strong> {pedido.telefone} <br />
-            </p>
-            <p>
-              <strong>Valor:</strong> {pedido.valor} <br />
-            </p>
-            <p>
-              <strong>Data:</strong> {pedido.data.toLocaleDateString()} <br />
-            </p>
-            {/* Formata a data como string */}
-            <p>
-              <strong>Detalhes:</strong>{' '}
-              {pedido.detalhes || 'Nenhum detalhe disponível'}{' '}
-            </p>
-            <br />
-            {/* Verifica se há detalhes disponíveis */}
-          </li>
-        ))}
-      </ul>
+    <div id="__next">
+      <Header showSearch={false} onSearchChange={handleSearchChange} />
+      <PedidosDoDia />
     </div>
   );
 };

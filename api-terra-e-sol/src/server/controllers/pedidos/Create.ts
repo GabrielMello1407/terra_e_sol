@@ -16,12 +16,20 @@ export const createValidation = validation((getSchema) => ({
       valor: yup.number().required(),
       data: yup.date().required(),
       detalhes: yup.string().optional(),
+      pronto: yup.boolean().default(false).optional(),
     })
   ),
 }));
 
 export const create = async (req: Request<{}, {}, Ipedidos>, res: Response) => {
   try {
+    const body = req.body;
+
+    // Garantir que pronto é false se não for fornecido
+    const pedidoData = {
+      ...body,
+      pronto: body.pronto !== undefined ? body.pronto : false,
+    };
     const result = await PedidosProvider.create(req.body);
 
     if (result instanceof Error) {

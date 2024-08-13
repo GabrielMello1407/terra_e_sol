@@ -14,7 +14,7 @@ const server = express();
 // Configuração do CORS
 server.use(
   cors({
-    origin: "http://localhost:3001", // Permite acesso do seu frontend rodando nesta origem
+    origin: true, // Permite acesso do seu frontend rodando nesta origem
     methods: ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
     allowedHeaders: ["Content-Type", "Authorization"], // Cabeçalhos permitidos
   })

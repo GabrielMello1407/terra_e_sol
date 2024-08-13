@@ -11,6 +11,7 @@ export async function up(knex: Knex) {
       table.float("valor").index().notNullable();
       table.date("data").index().notNullable(); // Ensure this is correctly defined
       table.string("detalhes").index().nullable();
+      table.boolean("pronto").defaultTo(false).index();
 
       table.comment("Essa é a tabela de pedidos");
     })

@@ -6,4 +6,5 @@ export interface Ipedidos {
   valor: number;
   data: Date | null;
   detalhes?: string;
+  pronto?: boolean;
 }

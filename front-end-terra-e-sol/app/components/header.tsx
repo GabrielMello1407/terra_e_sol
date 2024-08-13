@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { FaSearch } from 'react-icons/fa';
-import CadastrarModal from './modalCadastro';
+'use client';
 
-const Header: React.FC = () => {
+import Image from 'next/image';
+import CadastrarModal from './ModalCadastro';
+import { useState } from 'react';
+import Search from './Search';
+
+interface HeaderProps {
+  onSearchChange: (searchTerm: string) => void;
+  showSearch?: boolean; // Nova prop para controlar a visibilidade da barra de busca
+}
+
+const Header: React.FC<HeaderProps> = ({
+  onSearchChange,
+  showSearch = true,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  const closeModal = () => {
+  const handlePedidoCriado = () => {
+    console.log('Pedido criado!');
     setIsModalOpen(false);
   };
 
@@ -21,26 +31,15 @@ const Header: React.FC = () => {
           <a href="/">
             <Image
               src="/terra_logo.svg"
-              width={100}
-              height={100}
+              width={120}
+              height={120}
               alt="Terra e Sol Logo"
               className="object-contain"
             />
           </a>
         </div>
 
-        <div className="flex-grow mx-4">
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-md">
-              <input
-                type="text"
-                placeholder="Buscar..."
-                className="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder:text-[#41A156]"
-              />
-              <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#42A27C]" />
-            </div>
-          </div>
-        </div>
+        {showSearch && <Search onSearchChange={onSearchChange} />}
 
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
@@ -55,20 +54,24 @@ const Header: React.FC = () => {
             </div>
             <a
               href="/pedidos_do_dia"
-              className="text-[#025213] font-poppins hover:text-[#41A156] transition-colors font-bold"
+              className="text-2xl text-[#025213] font-poppins hover:text-[#41A156] transition-colors font-bold"
             >
               Pedidos do dia
             </a>
           </div>
           <button
             onClick={openModal}
-            className="px-4 py-2 bg-gradient-to-r from-[#41A156] to-[#41A18A] text-white font-poppins rounded-lg hover:from-[#41A18A] hover:to-[#41A156] transition-colors font-bold text-lg"
+            className="text-2xl px-4 py-2 bg-gradient-to-r from-[#41A156] to-[#41A18A] text-white font-poppins rounded-lg hover:from-[#41A18A] hover:to-[#41A156] transition-colors font-bold"
           >
             Cadastrar
           </button>
         </div>
       </div>
-      <CadastrarModal isOpen={isModalOpen} onRequestClose={closeModal} />
+      <CadastrarModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        onPedidoCriado={handlePedidoCriado}
+      />
     </header>
   );
 };

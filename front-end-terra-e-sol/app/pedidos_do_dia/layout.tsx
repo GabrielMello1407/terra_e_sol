@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Terra e Sol',
+  title: 'Pedidos do dia - Terra e Sol',
   description: 'Desenvolvido por Gabriel Mello',
 };
 
