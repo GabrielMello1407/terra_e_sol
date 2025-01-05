@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es6", 
+    "module": "commonjs",  // Voltar para CommonJS
+    "moduleResolution": "node",  // Configuração para resolver módulos padrão
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./build",
     "rootDir": "./src",
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["jest"]
+    "types": ["node", "superagent"]
   },
-  "include": ["src/**/*", "tests/**/*"],  
-  "exclude": ["node_modules", "dist","tests","jest.config.ts","build"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests", "jest.config.ts", "build"]
 }

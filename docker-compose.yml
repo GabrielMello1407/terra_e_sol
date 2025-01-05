@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: db-terra-e-sol
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: pedidos
+    ports:
+      - '3306:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+
+  api:
+    build:
+      context: ./api-terra-e-sol
+      dockerfile: dockerfile
+    container_name: api-terra-e-sol
+    image: gabrielmellomoraes/api-terra-e-sol:latest
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ''
+      DB_NAME: pedidos
+      NODE_ENV: development
+      PORT: 3333
+    ports:
+      - '3333:3333'
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./front-end-terra-e-sol
+      dockerfile: dockerfile
+    container_name: frontend-terra-e-sol
+    image: gabrielmellomoraes/frontend-terra-e-sol:latest
+    environment:
+      NEXT_PUBLIC_API_URL: http://api-terra-e-sol:3333
+      NODE_ENV: development
+    ports:
+      - '3001:3000'
+    depends_on:
+      - api
+
+volumes:
+  db_data:

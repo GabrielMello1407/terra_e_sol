@@ -1,36 +1,40 @@
 import { Knex } from "knex";
-import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const development: Knex.Config = {
-  client: "mysql2",
-  useNullAsDefault: true,
-  connection: {
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "pedidos",
+const config: { [key: string]: Knex.Config } = {
+  development: {
+    client: "mysql2",
+    connection: {
+      host: process.env.DB_HOST || "127.0.0.1",
+      port: Number(process.env.DB_PORT) || 3306,
+      user: process.env.DB_USER || "root",
+      password: process.env.DB_PASSWORD || "",
+      database: process.env.DB_NAME || "pedidos",
+    },
+    migrations: {
+      directory: "./src/server/database/migrations",
+    },
+    seeds: {
+      directory: "./src/server/database/seeds",
+    },
   },
-  migrations: {
-    directory: path.resolve(__dirname, "..", "migrations"),
-  },
-  seeds: {
-    directory: path.resolve(__dirname, "..", "seeds"),
-  },
-  pool: {
-    afterCreate: (connection: any, done: Function) => {
-      done();
+  production: {
+    client: "mysql2",
+    connection: {
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT) || 3306,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    },
+    migrations: {
+      directory: "./src/server/database/migrations",
+    },
+    seeds: {
+      directory: "./src/server/database/seeds",
     },
   },
 };
 
-export const test: Knex.Config = {
-  ...development,
-  connection: {
-    database: "pedidos_test",
-  },
-};
-
-export const production: Knex.Config = {
-  ...development,
-};
+export default config;

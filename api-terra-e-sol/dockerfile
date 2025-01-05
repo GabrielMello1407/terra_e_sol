@@ -1,0 +1,17 @@
+# api-terra-e-sol/Dockerfile
+FROM node:latest
+
+WORKDIR /api-terra-sol
+COPY . .
+
+RUN rm -rf node_modules
+COPY package*.json ./
+RUN npm install
+
+
+
+EXPOSE 3333
+CMD ["npm", "start"]
+
+
+

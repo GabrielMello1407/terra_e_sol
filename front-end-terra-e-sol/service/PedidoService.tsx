@@ -1,10 +1,8 @@
-// cspell:ignore atualizar,obter,criar,listar,deletar
 import { Pedido } from '@/app/types/PedidoTypes';
 import axios, { AxiosResponse } from 'axios';
-import { revalidatePath } from 'next/cache';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: process.env.HOST_API,
 });
 
 export class PedidoService {

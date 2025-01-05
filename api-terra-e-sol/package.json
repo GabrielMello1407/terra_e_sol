@@ -6,10 +6,10 @@
     "start": "ts-node-dev src/index.ts",
     "build": "node ./build/index.js",
     "postinstall": "tsc",
-    "knex:migrate": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:latest",
-    "knex:rollback": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback",
-    "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback --all",
-    "knex:seed": "knex --knexfile ./src/server/database/knex/Enviroment.ts seed:run"
+    "knex:migrate": "cross-env NODE_ENV=development knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:latest",
+    "knex:rollback": "cross-env NODE_ENV=development knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback",
+    "knex:rollback-all": "cross-env NODE_ENV=development knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback --all",
+    "knex:seed": "cross-env NODE_ENV=development knex --knexfile ./src/server/database/knex/Enviroment.ts seed:run"
   },
   "author": "Gabriel Mello",
   "license": "MIT",
@@ -31,6 +31,7 @@
     "@types/http-status-codes": "^1.2.0",
     "@types/jest": "^29.5.12",
     "@types/mocha": "^10.0.7",
+    "@types/superagent": "^8.1.9",
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
